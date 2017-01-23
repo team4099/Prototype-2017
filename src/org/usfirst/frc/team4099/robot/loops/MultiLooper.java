@@ -21,8 +21,10 @@ public class MultiLooper implements Loop {
         }
     }
 
-    // start the MultiLooper's internal Looper, which
-    // will call the MultiLooper's onStart() method (MultiLooper is a Loop)
+    /**
+     * Starts the MultiLooper's internal Looper, which
+     * will call the MultiLooper's onStart() method (MultiLooper is a Loop)
+     */
     public void start() {
         mLooper.start();
     }
@@ -51,7 +53,7 @@ public class MultiLooper implements Loop {
         System.out.println("[i] MultiLooper '" + name + "' stopped.");
     }
 
-    public void addLoop(Loop loop) {
-        mLoops.addElement(loop);
+    public synchronized void addLoop(Loop loop) {
+        mLoops.add(loop);
     }
 }

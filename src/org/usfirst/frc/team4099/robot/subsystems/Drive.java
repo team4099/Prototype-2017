@@ -1,18 +1,15 @@
 package org.usfirst.frc.team4099.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4099.lib.drive.DriveSignal;
 import org.usfirst.frc.team4099.robot.Constants;
-import org.usfirst.frc.team4099.robot.ControlBoard;
-import org.usfirst.frc.team4099.lib.drive.CDriveHelper;
 import org.usfirst.frc.team4099.robot.loops.Loop;
 
 public class Drive implements Subsystem, Loop {
 
     private static Drive sInstance = new Drive();
-    private ControlBoard mControls = ControlBoard.getInstance();
     private int currentState = DriveControlState.OPEN_LOOP;
-    private CDriveHelper mCDrive = CDriveHelper.getInstance();
     private Talon leftTalonSR, rightTalonSR;
 
     public class DriveControlState {
@@ -29,7 +26,8 @@ public class Drive implements Subsystem, Loop {
     }
 
     public void outputToSmartDashboard() {
-
+        SmartDashboard.putNumber("leftTalon", leftTalonSR.get());
+        SmartDashboard.putNumber("rightTalon", rightTalonSR.get());
     }
 
     public synchronized void stop() {
@@ -46,11 +44,6 @@ public class Drive implements Subsystem, Loop {
     public synchronized void onLoop() {
         switch (currentState) {
             case DriveControlState.OPEN_LOOP:
-                double throttle = mControls.getThrottle();
-                double wheel = mControls.getWheel();
-                boolean isQuickTurn = mControls.getQuickTurn();
-
-                setOpenLoop(mCDrive.curvatureDrive(throttle, wheel, isQuickTurn));
                 return;
 
             default:
