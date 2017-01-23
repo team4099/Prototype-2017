@@ -58,5 +58,12 @@ public class Robot extends IterativeRobot {
         boolean isQuickTurn = mControls.getQuickTurn();
 
         mDrive.setOpenLoop(mCDrive.curvatureDrive(throttle, wheel, isQuickTurn));
+
+        // show operator all info
+        outputAllToSmartDashboard();
+    }
+
+    public void outputAllToSmartDashboard() {
+        mDrive.outputToSmartDashboard();
     }
 }
