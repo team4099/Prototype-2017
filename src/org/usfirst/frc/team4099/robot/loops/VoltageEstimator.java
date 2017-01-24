@@ -9,7 +9,6 @@ public class VoltageEstimator implements Loop {
     private static VoltageEstimator sInstance = new VoltageEstimator();
 
     private double running_avg = 12;
-    private double weight = 15.0;
 
     public static VoltageEstimator getInstance() {
         return sInstance;
@@ -20,7 +19,9 @@ public class VoltageEstimator implements Loop {
     }
 
     public synchronized void onLoop() {
+        double weight = 15.0;
         double cur_voltage = DriverStation.getInstance().getBatteryVoltage();
+
         running_avg = (cur_voltage + weight * running_avg) / (1.0 + weight);
     }
 

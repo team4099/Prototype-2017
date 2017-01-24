@@ -25,4 +25,5 @@ This repository stores the code for our testbed/testbench, the system used to te
 * If the joysticks are recognized but no output is produced, unplug and replug.
 * When imaging the cRIO, change the Driver Station's IP address to `10.XX.YY.5`, with subnet mask `255.0.0.0`
 
-
+## Useful Functions
+Use Math.IEEEremainder() to simplify calculations. (Source: https://www.chiefdelphi.com/forums/showpost.php?p=1440383)
