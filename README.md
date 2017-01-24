@@ -1,4 +1,4 @@
-<img src="./assets/imgs/steamworks_logo.png" width="480"/>
+<img src="./assets/imgs/steamworks_logo.png" width="480" align="center"/>
 
 
 # Prototype 2017
