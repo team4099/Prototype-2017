@@ -12,7 +12,7 @@ public class Drive implements Subsystem, Loop {
     private int currentState = DriveControlState.OPEN_LOOP;
     private Talon leftTalonSR, rightTalonSR;
 
-    public class DriveControlState {
+    public class DriveControlState { // the struggle when no enums exist...
         public static final int OPEN_LOOP = 0;
     }
 
@@ -47,7 +47,7 @@ public class Drive implements Subsystem, Loop {
                 return;
 
             default:
-                System.out.println("Unknown 'Drive' control state reached!");
+                System.out.println("Unknown Drive subsystem control state reached!");
         }
     }
 

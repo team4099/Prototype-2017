@@ -16,17 +16,18 @@ public class Robot extends IterativeRobot {
     // joystick drive
     private CDriveHelper mCDrive = CDriveHelper.getInstance();
 
+    // multiloopers
     private MultiLooper mSystemEnabled100HzLooper =
             new MultiLooper(Constants.Loopers.LOOPER_DT, "enabledLooper");
     private MultiLooper mSystemDisabled100HzLooper =
             new MultiLooper(Constants.Loopers.LOOPER_DT, "disabledLooper");
 
-    public Robot() {
-
-    }
 
     public void robotInit() {
 
+        mSystemEnabled100HzLooper.addLoop(mDrive);
+
+        System.out.println("[i] Robot initialized.");
     }
 
     public void disabledInit() {

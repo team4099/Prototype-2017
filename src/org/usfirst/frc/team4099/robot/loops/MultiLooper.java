@@ -54,6 +54,6 @@ public class MultiLooper implements Loop {
     }
 
     public synchronized void addLoop(Loop loop) {
-        mLoops.add(loop);
+        mLoops.addElement(loop);
     }
 }
