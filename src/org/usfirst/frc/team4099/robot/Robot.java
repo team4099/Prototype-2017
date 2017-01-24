@@ -2,6 +2,7 @@ package org.usfirst.frc.team4099.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.usfirst.frc.team4099.lib.drive.CDriveHelper;
+import org.usfirst.frc.team4099.robot.loops.DashboardUpdater;
 import org.usfirst.frc.team4099.robot.loops.MultiLooper;
 import org.usfirst.frc.team4099.robot.subsystems.Drive;
 
@@ -22,10 +23,15 @@ public class Robot extends IterativeRobot {
     private MultiLooper mSystemDisabled100HzLooper =
             new MultiLooper(Constants.Loopers.LOOPER_DT, "disabledLooper");
 
+    private DashboardUpdater mDashUpdater = DashboardUpdater.getInstance();
+
 
     public void robotInit() {
 
         mSystemEnabled100HzLooper.addLoop(mDrive);
+        mSystemEnabled100HzLooper.addLoop(mDashUpdater);
+
+        mSystemDisabled100HzLooper.addLoop(mDashUpdater);
 
         System.out.println("[i] Robot initialized.");
     }
@@ -59,12 +65,5 @@ public class Robot extends IterativeRobot {
         boolean isQuickTurn = mControls.getQuickTurn();
 
         mDrive.setOpenLoop(mCDrive.curvatureDrive(throttle, wheel, isQuickTurn));
-
-        // show operator all info
-        outputAllToSmartDashboard();
-    }
-
-    public void outputAllToSmartDashboard() {
-        mDrive.outputToSmartDashboard();
     }
 }
