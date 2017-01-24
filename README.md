@@ -3,7 +3,7 @@
 
 # Prototype 2017
 [![](https://img.shields.io/pypi/status/Django.svg)]()
-<img src="./assets/imgs/team.svg"/>
+[![](https://img.shields.io/badge/FIRST%20Robotics%20Competition-4099-green.svg)]()
 
 This repository stores the code for our testbed/testbench, the system used to test prototypes and autonomous for Poolesville High School's _FIRST&reg;_ Robotics Competition team, Falcons FIRST (FRC 4099).
 
