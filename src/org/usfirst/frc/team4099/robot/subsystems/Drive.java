@@ -19,7 +19,7 @@ public class Drive implements Subsystem, Loop {
         public static final int OPEN_LOOP = 0;
     }
 
-    private Drive() {
+    public Drive() {
         leftTalonSR = new Talon(Constants.Drive.LEFT_TALON_PORT);
         rightTalonSR = new Talon(Constants.Drive.RIGHT_TALON_PORT);
     }

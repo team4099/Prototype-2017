@@ -1,6 +1,6 @@
 MIDlet-Name: Testbed-2017
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
-MIDlet-1: org.usfirst.frc.team4099.robot.Robot , org.usfirst.frc.team4099.robot
+MIDlet-1: Robot, , org.usfirst.frc.team4099.robot.Robot
 MicroEdition-Profile: IMP-1.0
 MicroEdition-Configuration: CLDC-1.1
