@@ -52,7 +52,7 @@ public class Drive implements Subsystem, Loop {
 
         switch (currentState) {
             case DriveControlState.OPEN_LOOP:
-                System.out.println(Timer.getFPGATimestamp());
+                System.out.println(dt);
                 return;
 
             default:

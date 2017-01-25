@@ -20,7 +20,6 @@ public class Looper {
         if (mLoopUpdater == null) {
             mLoop.onStart();
             mLoopUpdater = new Timer();
-            System.out.println("period: " + kPeriod);
             mLoopUpdater.schedule(new UpdaterTask(this), 0L, (long) (kPeriod * 1000));
         }
     }

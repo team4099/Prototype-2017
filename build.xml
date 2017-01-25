@@ -28,7 +28,8 @@
     <property file="${user.home}/.sunspotfrc.properties"/>
     <import file="${sunspot.home}/build.xml"/>
 
-    <!--<target name="build-deploy" depends="crio-project-build.deploy,crio-project-build.run"/>-->
+    <target name="build-deploy"
+            depends="crio-project-build.deploy,crio-project-build.run"/>
 
     <!--
 
