@@ -7,27 +7,32 @@ import edu.wpi.first.wpilibj.Joystick;
  * ----------------------------------------
  * X Emulation Mode (switch on back = X)
  * Flight Mode (Mode Light = Off)
- *
- * NOTE: Buttons start (for the 2014 control system) at the 0 (ZERO) index, not 1,
- *       which is used in the new control system.
  */
 
-public class LogitechF310Gamepad extends Joystick {
+public class DualShock4Gamepad extends Joystick {
 
-    public LogitechF310Gamepad(int port) {
+    public DualShock4Gamepad(int port) {
         super(port);
     }
 
     public double getLeftXAxis() {
-        return this.getRawAxis(1);
+        return this.getRawAxis(0);
     }
 
     public double getLeftYAxis() {
-        return -this.getRawAxis(2);
+        return -this.getRawAxis(1);
+    }
+
+    public double getLeftTriggerAxis() {
+        return this.getRawAxis(3);
+    }
+
+    public double getRightTriggerAxis() {
+        return this.getRawAxis(4);
     }
 
     public double getRightXAxis() {
-        return this.getRawAxis(4);
+        return this.getRawAxis(2);
     }
 
     public double getRightYAxis() {
@@ -35,15 +40,15 @@ public class LogitechF310Gamepad extends Joystick {
     }
 
     public boolean getAButton() {
-        return this.getRawButton(1);
-    }
-
-    public boolean getBButton() {
         return this.getRawButton(2);
     }
 
-    public boolean getXButton() {
+    public boolean getBButton() {
         return this.getRawButton(3);
+    }
+
+    public boolean getXButton() {
+        return this.getRawButton(1);
     }
 
     public boolean getYButton() {
@@ -51,10 +56,18 @@ public class LogitechF310Gamepad extends Joystick {
     }
 
     public boolean getLeftJoystickButton() {
-        return this.getRawButton(9);
+        return this.getRawButton(11);
     }
 
     public boolean getRightJoystickButton() {
-        return this.getRawButton(10);
+        return this.getRawButton(12);
+    }
+
+    public boolean getLeftShoulderButton() {
+        return this.getRawButton(5);
+    }
+
+    public boolean getRightShoulderButton() {
+        return this.getRawButton(6);
     }
 }

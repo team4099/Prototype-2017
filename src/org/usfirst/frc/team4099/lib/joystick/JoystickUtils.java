@@ -4,6 +4,7 @@ import org.usfirst.frc.team4099.robot.loops.VoltageEstimator;
 
 public class JoystickUtils {
 
+    private static double MAX_OUTPUT = 0.85;
     private JoystickUtils() {}
 
     /**
@@ -16,7 +17,6 @@ public class JoystickUtils {
         // TODO: Implement MAX_OUTPUT limiter based on currentVoltage
 
         double currentVoltage = VoltageEstimator.getInstance().getAverageVoltage();
-        double MAX_OUTPUT = 0.85;
         double alpha = 0.1;
         double beta = MAX_OUTPUT - alpha;
 
@@ -31,7 +31,6 @@ public class JoystickUtils {
     }
 
     public static double deadbandNoShape(double signal, double deadbandWidth) {
-        double MAX_OUTPUT = 0.85;
 
         int sign = (signal > 0) ? 1 : -1;
         signal = Math.abs(signal);

@@ -22,7 +22,7 @@ public class CDriveHelper {
 
     private static final double kThrottleDeadband = 0.02;
     private static final double kWheelDeadband= 0.02;
-    private static final double kTurnSensitivity = 0.6;
+    private static final double kTurnSensitivity = 0.7;
 
     private double lastThrottle;
     private static final double kMaxThrottleDelta = 1.0 / 40.0;
@@ -35,15 +35,12 @@ public class CDriveHelper {
 
     public DriveSignal curvatureDrive(double throttle, double wheel, boolean isQuickTurn) {
         throttle = JoystickUtils.deadband(throttle, kThrottleDeadband);
-        //TODO: see if moving wheel in the beginning makes a difference in throttle stop
-        //TODO: because it used to come after the negativeInertia code
         wheel = -JoystickUtils.deadbandNoShape(wheel, kWheelDeadband);
 
-        //TODO: test this, does it really make controls feel better?
-        double wheelNonLinearity = 0.5;
-        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
-        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
-        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
+//        double wheelNonLinearity = 0.5;
+//        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
+//        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
+//        wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / Math.sin(Math.PI / 2.0 * wheelNonLinearity);
 
         /* ramps up the joystick throttle when magnitude increases
          * if magnitude decreases (1.0 to 0.0, or -1.0 to 0.0), allow anything
@@ -53,7 +50,6 @@ public class CDriveHelper {
          *
          * The acceleration time is quite apparent, but not unresponsive.
          */
-
         if (!Utils.sameSign(throttle, lastThrottle)) {
             throttle = 0.0;
         } else {
@@ -73,21 +69,15 @@ public class CDriveHelper {
         SmartDashboard.putNumber("joystickThrottle", throttle);
         lastThrottle = throttle;
 
-        if (Utils.around(wheel, 0.0, 0.15)) { // if moving straight
-            double beta = 0.1;
 
+        // negative inertia!
+        if (throttle > 0.1 && Utils.around(wheel, 0.0, 0.15)) { // moving straight, fast
+            double beta = 0.1;
             negativeInertia = (1 - beta) * negativeInertia +
                     beta * Utils.limit(throttle, 1.0) * 2;
-        }
-
-        if (Utils.around(throttle, 0.0, 0.075)) { // if wanting to brake (low throttle)
-            if (!Utils.around(negativeInertia, 0.0, 0.0001))
-                System.out.println("negativeInertia: " + negativeInertia);
-
+        } else if (Utils.around(throttle, 0.0, 0.075)) { // if wanting to brake (low throttle)
             throttle -= negativeInertia;
 
-            //TODO: find the optimal value for negativeInertia decrease per iteration
-            //TODO: testing 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1.0, etc.
             if (negativeInertia > 1) {
                 negativeInertia -= 0.1;
             } else if (negativeInertia < -1) {
@@ -96,8 +86,6 @@ public class CDriveHelper {
                 negativeInertia = 0.0;
             }
         }
-
-        // wheel deadband used to be here
 
         double overPower;
         double angularPower;

@@ -2,8 +2,10 @@ package org.usfirst.frc.team4099.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.usfirst.frc.team4099.lib.drive.CDriveHelper;
+import org.usfirst.frc.team4099.lib.drive.TankDriveHelper;
 import org.usfirst.frc.team4099.robot.loops.DashboardUpdater;
 import org.usfirst.frc.team4099.robot.loops.MultiLooper;
+import org.usfirst.frc.team4099.robot.loops.VoltageEstimator;
 import org.usfirst.frc.team4099.robot.subsystems.Drive;
 
 public class Robot extends IterativeRobot {
@@ -16,6 +18,7 @@ public class Robot extends IterativeRobot {
 
     // joystick drive
     private CDriveHelper mCDrive = CDriveHelper.getInstance();
+    private TankDriveHelper mTankDrive =TankDriveHelper.getInstance();
 
     // multiloopers
     private MultiLooper mSystemEnabled100HzLooper =
@@ -24,6 +27,7 @@ public class Robot extends IterativeRobot {
             new MultiLooper(Constants.Loopers.LOOPER_DT, "disabledLooper");
 
     private DashboardUpdater mDashUpdater = DashboardUpdater.getInstance();
+    private VoltageEstimator mVoltageEstimator = VoltageEstimator.getInstance();
 
 
     public void robotInit() {
@@ -32,6 +36,7 @@ public class Robot extends IterativeRobot {
         mSystemEnabled100HzLooper.addLoop(mDashUpdater);
 
         mSystemDisabled100HzLooper.addLoop(mDashUpdater);
+        mSystemDisabled100HzLooper.addLoop(mVoltageEstimator);
 
         System.out.println("[i] Robot initialized.");
     }
@@ -65,5 +70,14 @@ public class Robot extends IterativeRobot {
         boolean isQuickTurn = mControls.getQuickTurn();
 
         mDrive.setOpenLoop(mCDrive.curvatureDrive(throttle, wheel, isQuickTurn));
+
+//        double left = mControls.getTankLeft();
+//        double right = mControls.getTankRight();
+//        mDrive.setOpenLoop(mTankDrive.tankDrive(left, right));
+
+    }
+
+    public void testPeriodic() {
+
     }
 }
