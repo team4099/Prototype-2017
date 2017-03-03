@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4099.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.usfirst.frc.team4099.auto.AutoModeExecuter;
 import org.usfirst.frc.team4099.lib.drive.CDriveHelper;
 import org.usfirst.frc.team4099.lib.drive.TankDriveHelper;
 import org.usfirst.frc.team4099.robot.loops.DashboardUpdater;
@@ -28,6 +29,10 @@ public class Robot extends IterativeRobot {
 
     private DashboardUpdater mDashUpdater = DashboardUpdater.getInstance();
     private VoltageEstimator mVoltageEstimator = VoltageEstimator.getInstance();
+
+    private AutoModeExecuter mAutoModeExecuter = null;
+    private SmartDashboardInteractions mSmartDashboardInteractions = new SmartDashboardInteractions();
+
 
 
     public void robotInit() {
@@ -61,7 +66,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousPeriodic() {
-
+        mAutoModeExecuter = new AutoModeExecuter();
+        mAutoModeExecuter.setAutoMode(mSmartDashboardInteractions.getSelectedAutonMode());
+        mAutoModeExecuter.start();
     }
 
     public void teleopPeriodic() {
